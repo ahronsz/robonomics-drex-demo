@@ -28,10 +28,10 @@ while True:
     income_tracker.act_income_event.clear()
     operation = {
         "success": True,
-	    "voltage": "220",
-	    "current": "10",
-	    "energy": "3.055555555555556",
-	    "energy-acum": "3.055555555555556"
+        "voltage": "220",
+        "current": "10",
+        "energy": "3.055555555555556",
+        "energy-acum": "3.055555555555556"
     }
 
     if operation["success"]:
