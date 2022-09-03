@@ -12,7 +12,7 @@ sudo reboot
 ```
 - Clone the repository
 ```bash
-git clone https://github.com/Multi-Agent-io/robonomics-coffee-maker
+git clone https://github.com/ahronsz/robonomics-drex-demo.git
 ```
 - Install project requirements
 ```bash
