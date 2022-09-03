@@ -15,6 +15,7 @@ logging.basicConfig(
 # Define Statemine sss58_address from seed
 seed: str = sys.argv[1]
 keypair = Keypair.create_from_mnemonic(seed, ss58_format=2)
+keypairrobonomic = Keypair.create_from_mnemonic("sea calm shoe boss excuse unlock blossom member very another exile finish", ss58_format=2)
 
 # Start income tracker
 income_tracker = ACTIncomeTracker(keypair.ss58_address)
@@ -34,7 +35,7 @@ while True:
         logging.info("Operation Successful.")
         try:
             # Initiate RobonomicsInterface instance
-            ri_interface = RI(seed=seed)
+            ri_interface = RI(seed=keypairrobonomic)
             ri_interface.record_datalog(f"Successfully made some coffee!")
         except Exception as e:
             logging.error(f"Failed to record Datalog: {e}")
@@ -42,7 +43,7 @@ while True:
         logging.error(f"Operation Failed.")
         try:
             # Initiate RobonomicsInterface instance
-            ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
+            ri_interface = RI(seed=keypairrobonomic, remote_ws="wss://kusama.rpc.robonomics.network")
             ri_interface.record_datalog(f"Failed to make coffee: {operation['message']}")
         except Exception as e:
             logging.error(f"Failed to record Datalog: {e}")
