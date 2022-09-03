@@ -1,0 +1,18 @@
+[Unit]
+Description=robonomics-coffee-maker-robonomics-kusama startup service
+
+After=network.target
+
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=15
+
+#Edit these lines. Insert mnemonic key
+User = ubuntu
+Environment=seed="sea calm shoe boss excuse unlock blossom member very another exile finish"
+ExecStart= /usr/bin/python3 /home/$USER/robonnomics-cofee-maker/robonomics-kusama/main.py ${seed}
+
+[Install]
+WantedBy=multi-user.target 
