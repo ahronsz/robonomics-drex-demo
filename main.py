@@ -25,7 +25,10 @@ while True:
     # wait for money income event
     income_tracker.act_income_event.wait()
     income_tracker.act_income_event.clear()
-    operation = coffee_machine.make_a_coffee()
+    operation = {
+        "success": True,
+        "message": "operation success"
+    }
 
     if operation["success"]:
         logging.info("Operation Successful.")
