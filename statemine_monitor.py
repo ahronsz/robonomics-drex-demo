@@ -57,7 +57,7 @@ class ACTIncomeTracker:
 
         if update_nr > 0:
             if _new_act_balance > self._current_act_balance:
-                logging.info("Money income: {_new_act_balance - self._current_act_balance} DRX token(s)")
+                logging.info(f"Money income: {_new_act_balance - self._current_act_balance} DRX token(s)")
                 self._current_act_balance = _new_act_balance
                 self.act_income_event.set()
                 
