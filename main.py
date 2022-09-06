@@ -3,7 +3,7 @@ import time
 import sys
 
 from robonomicsinterface import RobonomicsInterface as RI
-from statemine_monitor import ACTIncomeTracker
+from statemine_monitor import DrxIncomeTracker
 from substrateinterface import Keypair
 
 # set up logging
@@ -18,10 +18,10 @@ keypair = Keypair.create_from_mnemonic(seed, ss58_format=2)
 keypairrobonomic = Keypair.create_from_mnemonic("sea calm shoe boss excuse unlock blossom member very another exile finish", ss58_format=2)
 
 # Start income tracker
-income_tracker = ACTIncomeTracker(keypair.ss58_address)
+income_tracker = DrxIncomeTracker(keypair.ss58_address)
 
-# Start coffee machine daemon
-logging.info("Started main coffee machine daemon")
+# Start solar panel daemon
+logging.info("Started main solar panel daemon")
 while True:
     # wait for money income event
     income_tracker.act_income_event.wait()

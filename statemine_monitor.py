@@ -10,9 +10,9 @@ logging.basicConfig(
 )
 
 
-class ACTIncomeTracker:
+class DrxIncomeTracker:
     """
-    Income tracker of ACT in Statemine Kusama parachain
+    Income tracker of DRX in Statemine Kusama parachain
     """
 
     def __init__(self, address: str):
@@ -20,7 +20,7 @@ class ACTIncomeTracker:
         Initiating instance of a class, create substrate connection, start a subscriber for incomes on a specified
         address
 
-        @param address: Coffee Machine ss58_address in Statemine Kusama parachain
+        @param address: Solar panel ss58_address in Statemine Kusama parachain
         """
 
         self._address: str = address
@@ -44,7 +44,7 @@ class ACTIncomeTracker:
 
     def _handle_incomes(self, obj: tp.Any, update_nr: int, subscription_id: int):
         """
-        Check ACT balance update and set Python Event on money income
+        Check DRX balance update and set Python Event on money income
 
         @param obj: updated chainstate output
         @param update_nr: update counter
@@ -74,7 +74,7 @@ class ACTIncomeTracker:
 
 if __name__ == '__main__':
 
-    income_tracker = ACTIncomeTracker("")
+    income_tracker = DrxIncomeTracker("")
     logging.info("Waiting for money income")
     while True:
         income_tracker.act_income_event.wait()

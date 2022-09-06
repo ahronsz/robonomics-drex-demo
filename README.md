@@ -20,11 +20,11 @@ pip3 install -r requirements.txt
 ```
 
 ## Account management
-On your PC install [Polkadot Extension](https://polkadot.js.org/extension/) and register a coffee-machine account there. **Save 
+On your PC install [Polkadot Extension](https://polkadot.js.org/extension/) and register a solar-panel account there. **Save 
 mnemonic seed phrase as it is going to be used later.**
 
 Logging actions in Robonomics is optional, you will need XRT on 
-[parachain.robonomics.network](https://parachain.robonomics.network/) for coffee-machine account (it is the same across
+[parachain.robonomics.network](https://parachain.robonomics.network/) for solar-panel account (it is the same across
 networks) for this. If not, there will simply be an error message *"Balance too low."*
 
 ## Run Robonomics coffee
@@ -36,11 +36,11 @@ You can send tokens from another account created the same way via `assets:transf
 [Statemine](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fkusama-statemine-rpc.paritytech.net#/explorer).
 
 As soon as there is an income (positive change in `assets:account` *storage function* for address 
-derived from seed and for token id `3077`) the RPI triggers GPIO pin 18 and coffee machine starts making coffee!
+derived from seed and for token id `102`) the RPI triggers GPIO pin 18 and coffee machine starts making coffee!
 
 ## Things to point out
 - This is a POC of a blockchain-driven IoT device, it has things to improve, wires to hide and functionality to implement
-- Token ID, the one, coffee-machine is waiting to receive is edited
+- Token ID, the one, solar-panel is waiting to receive is edited
 [here](https://github.com/Multi-Agent-io/robonomics-coffee-maker/blob/master/statemine_monitor.py#L27), so you can use your own token
 - Right now the only thing that matters for income tracker is the positive difference between current and previous
 asset balance. This may be filtered [code](https://github.com/Multi-Agent-io/robonomics-coffee-maker/blob/master/statemine_monitor.py#L59).
