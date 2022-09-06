@@ -47,7 +47,7 @@ while True:
         logging.error(f"Operation Failed.")
         try:
             # Initiate RobonomicsInterface instance
-            ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
+            ri_interface = RI(seed=seed, remote_ws="wss://127.0.0.1:9944")
             ri_interface.record_datalog(f"Failed: {operation['message']}")
         except Exception as e:
             logging.error(f"Failed to record Datalog: {e}")
