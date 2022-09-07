@@ -38,7 +38,7 @@ wifis:
 ```
 **Make sure that you input your actual wifi name and your wifi password.** Then you need to save the file, and insert the SD card to the Raspberry Pi and turn it on. It must connect to your wi-fi network, now you need to find its address. Firstly find your address in the local network with:
 
-Password is "ubuntu". Then follow the instructions to change the password.
+Your user and password is "ubuntu". Then follow the instructions to change the password.
 
 ```bash
 ip a
