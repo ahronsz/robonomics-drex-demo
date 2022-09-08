@@ -18,7 +18,7 @@ You will see the following output:
 ## Account management
 Ingresamos a la red development, desde un navegador y que sea en la Local Area Network
 
-![imager](./media/portal-develoment-failed.png)
+![imager](./media/portal-development-failed.png)
 
 Enable insecure content
 
@@ -26,7 +26,7 @@ Enable insecure content
 
 We are already connected to the local node
 
-![imager](./media/portal-develoment.png)
+![imager](./media/portal-development.png)
 
 # Get tokens
 Podemos utilizar la misma cuenta que creamos en el paso --
