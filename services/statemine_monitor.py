@@ -24,8 +24,8 @@ class DrxIncomeTracker:
         """
 
         self._address: str = address
-        self._assetid: int = 102  # DRX asset ID in Statemine Kusama parachain
-        self._current_act_balance: int # Saldo actual de caffe
+        self._assetid: int = 102  # DRX asset ID in Statemine Kusama parachain, page: https://statemine.statescan.io/asset/102
+        self._current_act_balance: int # Current balance
 
         logging.info("Creating an instance of an IncomeTracker class")
         logging.info("Initiating Statemine connection")

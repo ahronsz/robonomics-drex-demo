@@ -20,12 +20,22 @@ pip3 install -r requirements.txt
 ```
 
 ## Account management
-On your PC install [Polkadot Extension](https://polkadot.js.org/extension/) and register a solar-panel account there. **Save 
-mnemonic seed phrase as it is going to be used later.**
+Crearemos una cuenta de robonomics en la red de Kusama:
+(https://polkadot.js.org/apps/)
 
-Logging actions in Robonomics is optional, you will need XRT on 
-[parachain.robonomics.network](https://parachain.robonomics.network/) for solar-panel account (it is the same across
-networks) for this. If not, there will simply be an error message *"Balance too low."*
+1. First, entramos a la red de Kusama & Parachains. En la parachain Robonomics.
+
+![imager](./media/create-account-1.png)
+
+2. Entra a la pestaña de "Accounts" y crea una cuenta. **Importante**
+Guarda esta clave mnemonic seed, para las futuras operaciones.
+
+![imager](./media/create-account-2.png)
+
+3. Una vez finalizada, debemos de guardar el siguiente archivo generado. **Importante** Esta cuenta puede ser utilizada en las diversas parachains que se encuentra en Polkadot.js, seleccionar la opcion de Restore Json y luego importar el archivo generado.
+
+![imager](./media/create-account-3.png)
+
 
 ## Run Robonomics coffee
 Run this in repo folder:
@@ -36,12 +46,12 @@ You can send tokens from another account created the same way via `assets:transf
 [Statemine](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fkusama-statemine-rpc.paritytech.net#/explorer).
 
 As soon as there is an income (positive change in `assets:account` *storage function* for address 
-derived from seed and for token id `102`) the RPI triggers GPIO pin 18 and coffee machine starts making coffee!
+derived from seed and for token id `102`)
 
 ## Things to point out
 - This is a POC of a blockchain-driven IoT device, it has things to improve, wires to hide and functionality to implement
 - Token ID, the one, solar-panel is waiting to receive is edited
 [here](https://github.com/Multi-Agent-io/robonomics-coffee-maker/blob/master/statemine_monitor.py#L27), so you can use your own token
 - Right now the only thing that matters for income tracker is the positive difference between current and previous
-asset balance. This may be filtered [code](https://github.com/Multi-Agent-io/robonomics-coffee-maker/blob/master/statemine_monitor.py#L59).
-- Powered by [Robonomics](https://robonomics.network/), made by [Multi-Agent.io](https://multi-agent.io/).
+asset balance. This may be filtered [code](https://github.com/ahronsz/robonomics-drex-demo/blob/main/services/statemine_monitor.py).
+- Powered by [Robonomics](https://robonomics.network/).

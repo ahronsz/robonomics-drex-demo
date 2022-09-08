@@ -1,5 +1,5 @@
 # Prepared Image
-We prepared an image to make it easier to use the Home Assistant with Xiaomi Miio and Robonomics with the Raspberry Pi.
+We prepared an image to make it easier to use Robonomics with the Raspberry Pi.
 
 You can get it here: [download image](https://ipfs.io/ipfs/bafybeihzzqoyycflxzxlxy2aplkzxo537ggqatdlbr24b4dnlyrtpkp2eu)
 
