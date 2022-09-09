@@ -25,6 +25,7 @@ loop_c=0
 wh_acum=0
 t_port=0.5
 t=10 #seconds
+grid_id=1
 
 def get_log():
     try:
@@ -53,6 +54,7 @@ def get_log():
 
         return {
             "success": True,
+            "grid-id": grid_id,
             "voltage": v,
             "current": i,
             "energy": wh,
