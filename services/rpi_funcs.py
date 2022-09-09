@@ -20,10 +20,6 @@ from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, Connection
 
 ###  SEM ONE METERING DEVICE ###
 req1_1=b'\x40\x04\x00\x02\x00\x0C\x5E\xDE' #ser.read(29)  3+2*2*6+2
-loop_c=0
-wh_acum=0
-t_port=0.5
-t=10 #seconds
 
 ############################## DEFINE PAYLOADS ###############################
 
@@ -40,6 +36,10 @@ LABEL_4 = "Energy Acum"
 i = v = wh =  0
 
 ####### REQUEST UBIDOTS FUNCTION #######
+loop_c=0
+wh_acum=0
+t_port=0.5
+t=10 #seconds
 
 def get_log():
     try:
