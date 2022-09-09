@@ -1,6 +1,8 @@
 import logging
 import time
 import sys
+import rest
+import datetime
 
 from robonomicsinterface import RobonomicsInterface as RI
 from statemine_monitor import DrxIncomeTracker
@@ -26,12 +28,14 @@ while True:
     # wait for money income event
     income_tracker.act_income_event.wait()
     income_tracker.act_income_event.clear()
+    now = datetime.datetime.now()
     operation = {
         "success": True,
         "voltage": "220",
         "current": "10",
         "energy": "3.055555555555556",
-        "energy-acum": "3.055555555555556"
+        "energy-acum": "3.055555555555556",
+        "datetime": now.strftime("%Y-%m-%dT%H:%M:%S")
     }
 
     if operation["success"]:
@@ -39,6 +43,7 @@ while True:
         try:
             # Initiate RobonomicsInterface instance
             #ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
+            rest.record_log(operation)
             ri_interface = RI(seed=seed, remote_ws="ws://127.0.0.1:9944")
             ri_interface.record_datalog(f"Successfully! {operation}")
         except Exception as e:
