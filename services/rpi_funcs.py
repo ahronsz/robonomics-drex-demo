@@ -84,4 +84,3 @@ def get_log():
 
     except (ConnectTimeout, HTTPError, ReadTimeout, Timeout, ConnectionError):
         print("connection error")
-        time.sleep(5)
