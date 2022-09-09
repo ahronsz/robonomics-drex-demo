@@ -1,5 +1,5 @@
 import time
-import serial
+import datetime
 from function_data import * # DECIMAL FROM FLOAT32 INT32 UNINT16 INT32-M10K
 from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
 
@@ -56,7 +56,8 @@ def get_log():
             "voltage": v,
             "current": i,
             "energy": wh,
-            "energy-acum": wh_acum
+            "energy-acum": wh_acum,
+            "datetime": datetime.datetime.now()
         }
 
     except (ConnectTimeout, HTTPError, ReadTimeout, Timeout, ConnectionError):
