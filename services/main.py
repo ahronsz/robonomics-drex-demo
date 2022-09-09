@@ -31,10 +31,11 @@ while True:
     now = datetime.datetime.now()
     operation = {
         "success": True,
-        "voltage": "220",
-        "current": "10",
-        "energy": "3.055555555555556",
-        "energy-acum": "3.055555555555556",
+        "grid-id": 1,
+        "voltage": 220,
+        "current": 10,
+        "energy": 3.055555555555556,
+        "energy-acum": 3.055555555555556,
         "datetime": now.strftime("%Y-%m-%dT%H:%M:%S")
     }
 
@@ -57,4 +58,4 @@ while True:
         except Exception as e:
             logging.error(f"Failed to record Datalog: {e}")
     logging.info("Session over")
-    time.sleep(100)
+    time.sleep(10)
