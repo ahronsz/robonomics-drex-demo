@@ -39,15 +39,6 @@ LABEL_4 = "Energy Acum"
 ####### DEVICE VARIABLES  #######
 i = v = wh =  0
 
-####### PAYLOAD FUNCTION #######
-'''
-def build_payload(labels, *args):
-    payload = {}
-    for label, value in zip(labels, args):
-        payload[label] = value
-    return payload
-'''
-
 ####### REQUEST UBIDOTS FUNCTION #######
 
 def get_log():
