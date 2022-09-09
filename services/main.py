@@ -35,10 +35,10 @@ while True:
         if operation["success"]:
             logging.info("Operation Successful.")
             try:
+                logging.info(f"Successfully! {operation}")
                 # Initiate RobonomicsInterface instance
                 #ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
                 ri_interface = RI(seed=seed, remote_ws="ws://127.0.0.1:9944")
-                logging.info(f"Successfully! {operation}")
                 ri_interface.record_datalog(f"Successfully! {operation}")
             except Exception as e:
                 logging.error(f"Failed to record Datalog: {e}")
