@@ -1,14 +1,5 @@
-import re
 import time
-import datetime
-import json
 import serial
-import requests
-import sys, select
-import struct
-import random
-import math
-import pandas as pd
 from function_data import * # DECIMAL FROM FLOAT32 INT32 UNINT16 INT32-M10K
 from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
 
@@ -26,12 +17,6 @@ req1_1=b'\x40\x04\x00\x02\x00\x0C\x5E\xDE' #ser.read(29)  3+2*2*6+2
 TOKEN = "BBFF-pCiZMmMBWqtLVjivm2tT8SFfDU2h70"  # Put your TOKEN here
 DEVICE_1  = "drex_minigrid_1"  # Put your device label here
 
-####### DEVICE LABELS  #######
-LABEL_1 = "Current"  # Put your first variable label here
-LABEL_2 = "Voltage"
-LABEL_3 = "Energy"
-LABEL_4 = "Energy Acum"
-
 ####### DEVICE VARIABLES  #######
 i = v = wh =  0
 
@@ -45,6 +30,7 @@ def get_log():
     try:
         ########################################  SEM ONE METERING DEVICE #########################################
         ############## ID: 64  ##################
+        global wh_acum
         ser = serial.Serial('/dev/ttyAMA0', baudrate=9600, timeout=3)
         time.sleep(t_port)
         print("SEM ONE")
