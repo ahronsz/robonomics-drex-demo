@@ -23,7 +23,7 @@ keypairrobonomic = Keypair.create_from_mnemonic("sea calm shoe boss excuse unloc
 income_tracker = DrxIncomeTracker(keypair.ss58_address)
 
 # Start solar panel daemon
-logging.info("Started main solar panel daemon")
+logging.info("Started main Solar panel daemon")
 while True:
     # wait for money income event
     income_tracker.act_income_event.wait()
