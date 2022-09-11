@@ -1,6 +1,7 @@
 import logging
 import time
 import sys
+import rpi_funcs as rpi
 
 from robonomicsinterface import RobonomicsInterface as RI
 from statemine_monitor import DrxIncomeTracker
@@ -13,6 +14,7 @@ logging.basicConfig(
 )
 
 # Define Statemine sss58_address from seed
+t=10 #seconds
 seed: str = sys.argv[1]
 keypair = Keypair.create_from_mnemonic(seed, ss58_format=2)
 keypairrobonomic = Keypair.create_from_mnemonic("sea calm shoe boss excuse unlock blossom member very another exile finish", ss58_format=2)
@@ -21,22 +23,17 @@ keypairrobonomic = Keypair.create_from_mnemonic("sea calm shoe boss excuse unloc
 income_tracker = DrxIncomeTracker(keypair.ss58_address)
 
 # Start solar panel daemon
-logging.info("Started main solar panel daemon")
+logging.info("Started main Solar panel daemon")
 while True:
     # wait for money income event
     income_tracker.act_income_event.wait()
     income_tracker.act_income_event.clear()
-    operation = {
-        "success": True,
-        "voltage": "220",
-        "current": "10",
-        "energy": "3.055555555555556",
-        "energy-acum": "3.055555555555556"
-    }
+    operation = rpi.get_log()
 
     if operation["success"]:
         logging.info("Operation Successful.")
         try:
+            logging.info(f"Successfully! {operation}")
             # Initiate RobonomicsInterface instance
             #ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
             ri_interface = RI(seed=seed, remote_ws="ws://127.0.0.1:9944")
@@ -52,4 +49,4 @@ while True:
         except Exception as e:
             logging.error(f"Failed to record Datalog: {e}")
     logging.info("Session over")
-    time.sleep(100)
+    time.sleep(10)
