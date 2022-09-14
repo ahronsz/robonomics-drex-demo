@@ -28,11 +28,12 @@ while True:
     # wait for money income event
     #income_tracker.act_income_event.wait()
     #income_tracker.act_income_event.clear()
-    operation = rpi.get_log()
+    
 
     #if operation["success"]:
     logging.info("Operation Successful.")
     try:
+        operation = rpi.get_log()
         logging.info(f"Successfully! {operation}")
         # Initiate RobonomicsInterface instance
         #ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
