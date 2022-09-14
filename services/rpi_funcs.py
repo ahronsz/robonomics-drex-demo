@@ -41,7 +41,7 @@ def get_log():
         #print("Writing ",str(req))
         ser.write(req)
         #ser.read(29)  3+2*2*6+2
-        r=ser.read(29)
+        r = ser.read(29)
         #print("r:",r)
         if len(r) > 28:
             v = function2(r[3], r[4], r[5], r[6]) * (2 / 10)
