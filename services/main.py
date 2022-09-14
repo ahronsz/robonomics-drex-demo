@@ -37,7 +37,7 @@ while True:
         logging.info(f"Successfully! {operation}")
         # Initiate RobonomicsInterface instance
         #ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
-        #rest.record_log(operation)
+        rest.record_log(operation)
         #ri_interface = RI(seed=seed, remote_ws="ws://127.0.0.1:9944")
         #ri_interface.record_datalog(f"Successfully! {operation}")
     except Exception as e:
