@@ -30,17 +30,17 @@ while True:
     #income_tracker.act_income_event.clear()
     operation = rpi.get_log()
 
-    if operation["success"]:
-        logging.info("Operation Successful.")
-        try:
-            logging.info(f"Successfully! {operation}")
-            # Initiate RobonomicsInterface instance
-            #ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
-            rest.record_log(operation)
-            #ri_interface = RI(seed=seed, remote_ws="ws://127.0.0.1:9944")
-            #ri_interface.record_datalog(f"Successfully! {operation}")
-        except Exception as e:
-            logging.error(f"Failed to record Datalog: {e}")
+    #if operation["success"]:
+    logging.info("Operation Successful.")
+    try:
+        logging.info(f"Successfully! {operation}")
+        # Initiate RobonomicsInterface instance
+        #ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
+        rest.record_log(operation)
+        #ri_interface = RI(seed=seed, remote_ws="ws://127.0.0.1:9944")
+        #ri_interface.record_datalog(f"Successfully! {operation}")
+    except Exception as e:
+        logging.error(f"Failed to record Datalog: {e}")
     #else:
         #logging.error(f"Operation Failed.")
         #try:

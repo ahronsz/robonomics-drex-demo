@@ -55,7 +55,6 @@ def get_log():
         wh_acum = wh_acum + wh
 
         return {
-            "success": True,
             "grid-id": grid_id,
             "voltage": v,
             "current": i,
