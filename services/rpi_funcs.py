@@ -31,6 +31,7 @@ def get_log():
     try:
         ########################################  SEM ONE METERING DEVICE #########################################
         ############## ID: 64  ##################
+        dateNow = datetime.datetime.now()
         global wh_acum
         ser = serial.Serial('/dev/ttyAMA0', baudrate=9600, timeout=3)
         time.sleep(t_port)
@@ -59,7 +60,7 @@ def get_log():
             "current": i,
             "energy": wh,
             "energy-acum": wh_acum,
-            "datetime": datetime.datetime.now()
+            "datetime": dateNow.strftime("%Y-%m-%dT%H:%M:%S")
         }
 
     except (ConnectTimeout, HTTPError, ReadTimeout, Timeout, ConnectionError):
