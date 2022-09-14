@@ -11,7 +11,7 @@ def record_log(body_request):
     _headers = {'Content-Type': 'application/json'}
     try:
         r = requests.post(record_url, data=json.dumps(body_request), headers=_headers)
-        logging.info(f"Operation Successful. status code: ", r.status_code())
+        logging.info(f"Operation Successful. status code: {r.status_code()}")
     except requests.exceptions.RequestException as err:
         print('Bad Status Code', r.status_code)
         logging.warning(err)
