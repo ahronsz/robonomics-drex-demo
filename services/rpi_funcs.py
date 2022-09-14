@@ -1,5 +1,6 @@
 import time
 import datetime
+import serial
 from function_data import * # DECIMAL FROM FLOAT32 INT32 UNINT16 INT32-M10K
 from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
 
