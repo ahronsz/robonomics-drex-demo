@@ -17,7 +17,7 @@ def record_log(body_request):
     except requests.exceptions.RequestException as err:
         print('Bad Status Code', r.status_code)
         logging.warning(err)
-<
+
 
 
 
