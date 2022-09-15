@@ -35,7 +35,7 @@ while True:
             lastDatalog = datalog.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
             logging.info(f"Successfully logged datalog in robonomics! {lastDatalog[1]}")
         else :
-            logging.info(f"Missing power for registration to robonomics {current_energy if current_energy == 0 else 10000} Wh") 
+            logging.info(f"Missing power for registration to robonomics {10000 if current_energy == 0 else current_energy} Wh") 
     except Exception as e:
         logging.error(f"Failed to record Datalog: {e}")
     logging.info("Session over")
