@@ -4,8 +4,9 @@ import sys
 import rest
 import rpi_funcs as rpi
 
-from robonomicsinterface import RobonomicsInterface as RI
-from substrateinterface import Keypair
+from robonomicsinterface import Account
+from robonomicsinterface import Datalog
+#from substrateinterface import Keypair
 
 # set up logging
 logging.basicConfig(
@@ -13,10 +14,10 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s: %(message)s"
 )
 
-# Define Statemine sss58_address from seed
-t=10 #seconds
+# Define Robonomics sss58_address from seed
 seed: str = sys.argv[1]
-keypair = Keypair.create_from_mnemonic(seed, ss58_format=2)
+#keypair = Keypair.create_from_mnemonic(seed, ss58_format=2)
+account_with_seed = Account(seed=seed, remote_ws="")
 
 # Start income tracker
 #income_tracker = DrxIncomeTracker(keypair.ss58_address)
@@ -33,12 +34,15 @@ while True:
     logging.info("Operation Successful.")
     try:
         operation = rpi.get_log()
-        logging.info(f"Successfully! {operation}")
         # Initiate RobonomicsInterface instance
         #ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
         rest.record_log(operation)
-        ri_interface = RI(seed=seed, remote_ws="ws://127.0.0.1:9944")
-        ri_interface.record_datalog(f"Successfully! {operation}")
+        #ri_interface = RI(seed=seed, remote_ws="ws://127.0.0.1:9944")
+        datalog = Datalog(account_with_seed)
+        datalog.record("Hello, world")
+          # If index was not provided here, the latest one will be used
+        logging.info(f"Successfully! {datalog.get_item(account_with_seed.get_address())}")
+        #ri_interface.record_datalog(f"Successfully! {operation}")
         #if operation["success"]:
         #    print("hola mundo")
     except Exception as e:
