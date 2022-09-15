@@ -20,14 +20,13 @@ account_with_seed = Account(seed=seed, remote_ws="ws://127.0.0.1:9944")
 logging.info("Started main Solar panel daemon")
 while True:
     #if operation["success"]:
-    logging.info("Operation Successful.")
     try:
         operation = rpi.get_log()
         rest.record_log(operation)
         datalog = Datalog(account_with_seed)
         datalog.record(f"Successfully! {operation}")
         lastDatalog = datalog.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
-        logging.info(f"Successfully! {lastDatalog.get}")
+        logging.info(f"Successfully! {lastDatalog[1]}")
         #ri_interface.record_datalog(f"Successfully! {operation}")
         #if operation["success"]:
         #    print("hola mundo")
