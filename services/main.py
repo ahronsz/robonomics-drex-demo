@@ -20,26 +20,21 @@ account_with_seed = Account(seed=seed, remote_ws="ws://127.0.0.1:9944")
 # Start solar panel daemon
 logging.info("Started main Solar panel daemon")
 while True:
-    #if operation["success"]:
     try:
-        operation = rpi.get_log()
-        rest.record_log(operation)
         datalog = Datalog(account_with_seed)
-        datalog.record(json.dumps(operation))
-        lastDatalog = datalog.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
-        logging.info(f"Successfully! {lastDatalog[1]}")
-        #ri_interface.record_datalog(f"Successfully! {operation}")
-        #if operation["success"]:
-        #    print("hola mundo")
+        lastDatalog = datalog.get_item(account_with_seed.get_address())
+        rpiLog = rpi.get_log()
+        rest.record_log(rpiLog)
+        json_lastDatalog = json.loads(lastDatalog)
+
+        last_energy_robo = json_lastDatalog["energy-acum"] if json_lastDatalog["energy-acum"] else 0
+        current_energy_rpi = rpiLog["energy-acum"] if rpiLog["energy-acum"] else 0
+            
+        if current_energy_rpi - last_energy_robo >= 10000:
+            datalog.record(json.dumps(rpiLog))
+            lastDatalog = datalog.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
+            logging.info(f"Successfully logged datalog in robonomics! {lastDatalog[1]}")
     except Exception as e:
         logging.error(f"Failed to record Datalog: {e}")
-    #else:
-        #logging.error(f"Operation Failed.")
-        #try:
-            # Initiate RobonomicsInterface instance
-            #ri_interface = RI(seed=seed, remote_ws="wss://kusama.rpc.robonomics.network")
-            #ri_interface.record_datalog(f"Failed: {operation['message']}")
-        #except Exception as e:
-            #logging.error(f"Failed to record Datalog: {e}")
     logging.info("Session over")
     time.sleep(60)
