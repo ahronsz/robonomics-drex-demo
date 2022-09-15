@@ -1,5 +1,6 @@
 import logging
 import time
+import json
 import sys
 import rest
 import rpi_funcs as rpi
@@ -24,7 +25,7 @@ while True:
         operation = rpi.get_log()
         rest.record_log(operation)
         datalog = Datalog(account_with_seed)
-        datalog.record(operation)
+        datalog.record(json.dumps(operation))
         lastDatalog = datalog.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
         logging.info(f"Successfully! {lastDatalog[1]}")
         #ri_interface.record_datalog(f"Successfully! {operation}")
