@@ -29,13 +29,13 @@ while True:
 
         last_energy_robo = json_lastDatalog["energy-acum"] if json_lastDatalog["energy-acum"] else 0
         current_energy_rpi = rpiLog["energy-acum"] if rpiLog["energy-acum"] else 0
-        current_energy = current_energy_rpi - last_energy_robo    
+        current_energy = current_energy_rpi - last_energy_robo
         if current_energy >= 10000 :
             datalog.record(json.dumps(rpiLog))
             lastDatalog = datalog.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
             logging.info(f"Successfully logged datalog in robonomics! {lastDatalog[1]}")
         else :
-            logging.info(f"Missing power for registration to robonomics {current_energy} Kw") 
+            logging.info(f"Missing power for registration to robonomics {current_energy if current_energy == 0 else 10000} Kw") 
     except Exception as e:
         logging.error(f"Failed to record Datalog: {e}")
     logging.info("Session over")
