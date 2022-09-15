@@ -25,7 +25,7 @@ while True:
         lastDatalog = datalog.get_item(account_with_seed.get_address())
         rpiLog = rpi.get_log()
         rest.record_log(rpiLog)
-        json_lastDatalog = json.loads(lastDatalog)
+        json_lastDatalog = json.loads(lastDatalog[1])
 
         last_energy_robo = json_lastDatalog["energy-acum"] if json_lastDatalog["energy-acum"] else 0
         current_energy_rpi = rpiLog["energy-acum"] if rpiLog["energy-acum"] else 0
