@@ -13,15 +13,16 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s: %(message)s"
 )
 
-# Define Robonomics sss58_address from seed
+# Define Panel solar machine Robonomics account
 seed: str = sys.argv[1]
 account_with_seed = Account(seed=seed, remote_ws="ws://127.0.0.1:9944")
+datalog = Datalog(account_with_seed)
 
 # Start solar panel daemon
 logging.info("Started main Solar panel daemon")
 while True:
     try:
-        datalog = Datalog(account_with_seed)
+        
         lastDatalog = datalog.get_item(account_with_seed.get_address())
         rpiLog = rpi.get_log()
         rest.record_log(rpiLog)
