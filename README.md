@@ -25,16 +25,16 @@ Crearemos una cuenta de robonomics en la red de Kusama:
 
 1. First, entramos a la red de Kusama & Parachains. En la parachain Robonomics.
 
-![imager](../media/create-account-1.png)
+![imager](./docs/media/create-account-1.png)
 
 2. Entra a la pestaña de "Accounts" y crea una cuenta. **Importante**
 Guarda esta clave mnemonic seed, para las futuras operaciones.
 
-![imager](../media/create-account-2.png)
+![imager](./docs/media/create-account-2.png)
 
 3. Una vez finalizada, debemos de guardar el siguiente archivo generado. **Importante** Esta cuenta puede ser utilizada en las diversas parachains que se encuentra en Polkadot.js, seleccionar la opcion de Restore Json y luego importar el archivo generado.
 
-![imager](../media/create-account-3.png)
+![imager](./docs/media/create-account-3.png)
 
 
 ## Run Robonomics coffee
