@@ -1,5 +1,5 @@
 [Unit]
-Description=robonomics-coffee-maker-robonomics-kusama startup service
+Description=robonomics-drex-demo startup service
 
 After=network.target
 
