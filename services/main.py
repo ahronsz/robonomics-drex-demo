@@ -15,7 +15,7 @@ logging.basicConfig(
 
 # Define Panel solar machine Robonomics account
 seed: str = sys.argv[1]
-account_with_seed = Account(seed=seed, remote_ws="ws://127.0.0.1:9944")
+account_with_seed = Account(seed=seed, remote_ws="wss://rococo.rpc.robonomics.network:9944")
 datalog = Datalog(account_with_seed)
 
 # Start solar panel daemon
