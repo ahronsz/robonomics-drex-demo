@@ -29,7 +29,9 @@ t=10 #seconds
 grid_id=1
 
 def get_log():
+
     try:
+        '''
         ########################################  SEM ONE METERING DEVICE #########################################
         ############## ID: 64  ##################
         dateNow = datetime.datetime.now()
@@ -52,7 +54,7 @@ def get_log():
                 i = 0
 
         wh = v * i * (t / (60 * 60))
-        wh_acum = wh_acum + wh
+        wh_acum = wh_acum + wh '''
 
 
         
