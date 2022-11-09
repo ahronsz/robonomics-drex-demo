@@ -23,10 +23,10 @@ logging.info("Started main Solar panel daemon")
 while True:
     try:
         
-        lastDatalog = datalog.get_item(account_with_seed.get_address())
+        #lastDatalog = datalog.get_item(account_with_seed.get_address())
         rpiLog = rpi.get_log()
         datalog.record(json.dumps(rpiLog))
-        lastDatalog = datalog.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
+        #lastDatalog = datalog.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
         logging.info(f"Successfully logged datalog in robonomics! {lastDatalog[1]}")
         #rest.record_log(rpiLog)
         #json_lastDatalog = json.loads(lastDatalog[1] if lastDatalog else """{"energy-acum": 0}""")
