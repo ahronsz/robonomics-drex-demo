@@ -54,13 +54,24 @@ def get_log():
         wh = v * i * (t / (60 * 60))
         wh_acum = wh_acum + wh
 
-        return {
+
+        
+        '''return {
             "grid-id": grid_id,
             "voltage": v,
             "current": i,
             "energy": wh,
             "energy-acum": wh_acum,
             "datetime": dateNow.strftime("%Y-%m-%dT%H:%M:%S")
+        }'''
+
+        return {
+            "grid-id": 1,
+            "voltage": 233.4,
+            "current": 0.0,
+            "energy": 0.0,
+            "energy-acum": 62101.09766666666,
+            "datetime": "2022-11-08T19:06:33"
         }
 
     except (ConnectTimeout, HTTPError, ReadTimeout, Timeout, ConnectionError):
