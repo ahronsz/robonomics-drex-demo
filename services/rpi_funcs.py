@@ -25,7 +25,7 @@ i = v = wh =  0
 loop_c=0
 wh_acum=0
 t_port=0.5
-t=10 #seconds
+t=60 #seconds
 grid_id=1
 
 def get_log():
