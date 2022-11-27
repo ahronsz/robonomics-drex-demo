@@ -38,13 +38,16 @@ while True:
     rest.record_log(rpi_read)
     try:
         logging.info("Starting Connection to Robonomics.")
-        last_data_log = data_log.get_item(account_with_seed.get_address())
-        last_data_log = json.loads(last_data_log[1]["energy-accumulated"] if last_data_log else 0.0)
-        _energy_accumulated = rpi_read["energy-accumulated"]
         
-        current_energy = _energy_accumulated - last_data_log
+        lastDatalog = data_log.get_item(account_with_seed.get_address())
+        rpiLog = rpi.get_log()
+        json_lastDatalog = json.loads(lastDatalog[1] if lastDatalog else """{"energy-accumulated": 0}""")
+
+        last_energy_robo = json_lastDatalog["energy-accumulated"]
+        current_energy_rpi = rpiLog["energy-accumulated"] if rpiLog else 0
+        current_energy = current_energy_rpi - last_energy_robo
         if current_energy >= 1000 :
-            data_log.record(json.dumps(rpi_read))
+            data_log.record(json.dumps(rpiLog))
             lastDatalog = data_log.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
             logging.info(f"Successfully logged data log in robonomics! {lastDatalog[1]}")
         
