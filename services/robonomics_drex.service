@@ -1,15 +1,15 @@
 [Unit]
 Description=robonomics-drex-demo startup service
-
 After=network.target
 
 
 [Service]
 Type=simple
 Restart=always
-RestartSec=15
+#RestartSec=15
 
 #Edit these lines. Insert mnemonic key
+EnvironmentFile=/etc/systemd/system/.env
 User = ubuntu
 Environment=seed="sea calm shoe boss excuse unlock blossom member very another exile finish"
 ExecStart= /usr/bin/python3 /home/$USER/robonomics-drex-demo/services/main.py ${seed}

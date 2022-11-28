@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer for robonomics_drex service
+
+[Timer]
+Unit=robonomics_drex.service
+OnBootSec=60
+
+[Install]
+WantedBy=timers.target

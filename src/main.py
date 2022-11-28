@@ -40,17 +40,17 @@ while True:
         logging.info("Starting Connection to Robonomics.")
         
         lastDatalog = data_log.get_item(account_with_seed.get_address())
-        rpiLog = rpi.get_log()
-        json_lastDatalog = json.loads(lastDatalog[1] if lastDatalog else """{"energy-accumulated": 0}""")
+        json_lastDatalog = json.loads(lastDatalog[1] if lastDatalog else """{"energy-acum": 0}""")
 
-        last_energy_robo = json_lastDatalog["energy-accumulated"]
-        current_energy_rpi = rpiLog["energy-accumulated"] if rpiLog else 0
+        last_energy_robo = json_lastDatalog["energy-acum"]
+        current_energy_rpi = rpi_read["energy-acum"] if rpi_read else 0
         current_energy = current_energy_rpi - last_energy_robo
         if current_energy >= 1000 :
-            data_log.record(json.dumps(rpiLog))
+            data_log.record(json.dumps(rpi_read))
             lastDatalog = data_log.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
             logging.info(f"Successfully logged data log in robonomics! {lastDatalog[1]}")
-        
+        else :
+            logging.info(f"Missing power for registration to robonomics {1000 if current_energy == 0 else round(1000 - current_energy, 2)} Wh") 
         logging.info("Robonomics session finished.")
     except Exception as e:
         logging.error(f"Failed to record Datalog in Robonomics: {e}")

@@ -70,7 +70,7 @@ def get_data_grid():
             "voltage": 238.60000000000002,
             "current": 0.0,
             "energy": 2.0516666666666667,
-            "energy-accumulated": 0.0,
+            "energy-acum": 0.0,
             "datetime": "2022-11-13T00:00:00"
         }
     except Exception as e:
