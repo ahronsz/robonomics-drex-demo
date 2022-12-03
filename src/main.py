@@ -12,6 +12,8 @@ import json
 import sys
 import expose.rest as rest
 import rpi_funcs as rpi
+import grid_data as backup
+from global_variables import *
 
 from robonomicsinterface import Account, Datalog
 
@@ -33,26 +35,22 @@ except Exception as e:
 
 # Start solar panel daemon
 logging.info("Started main Solar panel daemon.")
-while True:
-    rpi_read = rpi.get_data_grid()
-    rest.record_log(rpi_read)
-    try:
-        logging.info("Starting Connection to Robonomics.")
-        
-        lastDatalog = data_log.get_item(account_with_seed.get_address())
-        json_lastDatalog = json.loads(lastDatalog[1] if lastDatalog else """{"energy-acum": 0}""")
 
-        last_energy_robo = json_lastDatalog["energy-acum"]
-        current_energy_rpi = rpi_read["energy-acum"] if rpi_read else 0
-        current_energy = current_energy_rpi - last_energy_robo
-        if current_energy >= 1000 :
-            data_log.record(json.dumps(rpi_read))
-            lastDatalog = data_log.get_item(account_with_seed.get_address())  # If index was not provided here, the latest one will be used
-            logging.info(f"Successfully logged data log in robonomics! {lastDatalog[1]}")
-        else :
-            logging.info(f"Missing power for registration to robonomics {1000 if current_energy == 0 else round(1000 - current_energy, 2)} Wh") 
-        logging.info("Robonomics session finished.")
-    except Exception as e:
-        logging.error(f"Failed to record Datalog in Robonomics: {e}")
+while True:
+    energy_data = rpi.get_data_grid()
+    rest.record_log(energy_data)
+    if(energy_data["energy-acum"] >= backup.get_last_trigger_meter + 1000):
+        backup.save_last_trigger_meter(energy_data)
+        try:
+            logging.info("Starting Connection to Robonomics.")
+            last_data_log = data_log.get_item(account_with_seed.get_address())
+            last_energy_accumulated_robo = last_data_log[1] if last_data_log else 0
+            energy_data["energy-acum"] = last_energy_accumulated_robo + energy_data["energy-acum"]
+            data_log.record(json.dumps(energy_data))
+        except Exception as e:
+            backup.append_data_grid(BACKUP_FILE_ROBONOMICS, energy_data)
+            logging.error(f"Failed to record Datalog in Robonomics: {e}")
+    logging.info("Robonomics session finished.")    
     logging.info("Session over.")
     time.sleep(20)
+            

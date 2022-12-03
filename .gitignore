@@ -1,3 +1,6 @@
 venv
 ../.idea
 **/__pycache__
+**/api-backup.csv
+**/robonomics-backup.csv
+**/last-record-trigger.csv

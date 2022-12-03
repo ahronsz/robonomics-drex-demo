@@ -75,4 +75,4 @@ def get_data_grid():
         }
     except Exception as e:
         logging.error(f"Failed to read grid data: {e}")
-        raise SystemExit
+        #raise SystemExit
