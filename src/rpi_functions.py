@@ -3,7 +3,7 @@ import datetime
 import logging
 #import serial
 from function_data import * # DECIMAL FROM FLOAT32 INT32 UNINT16 INT32-M10K
-from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
+from global_variables import currentTimestamp
 
 ############################## OPEN SERIAL PORT ###############################
 
@@ -29,7 +29,7 @@ t_port=0.5
 t=60 #seconds
 grid_id=1
 
-def get_data_grid():
+def get_energy_data():
     try:
         ########################################  SEM ONE METERING DEVICE #########################################
         ############## ID: 64  ##################
@@ -70,9 +70,8 @@ def get_data_grid():
             "voltage": 238.60000000000002,
             "current": 0.0,
             "energy": 2.0516666666666667,
-            "energy-acum": 0.0,
-            "datetime": "2022-11-13T00:00:00"
+            "energy-accumulated": 50,
+            "timestamp": currentTimestamp()
         }
     except Exception as e:
-        logging.error(f"Failed to read grid data: {e}")
-        #raise SystemExit
+        logging.fatal(f"Failed to read grid data: {e}")

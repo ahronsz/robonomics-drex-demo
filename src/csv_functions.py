@@ -1,17 +1,16 @@
 import logging
 import os
-import errno
 import csv
 from csv import DictWriter
 import os.path
 from global_variables import *
 
-#headers_energy_data = ['grid-id', 'voltage', 'current', 'energy', 'energy-acum', 'datetime']
-#headers_last_trigger = ['start', 'end', 'datetime']
+headers_energy_data = ['grid-id', 'voltage', 'current', 'energy', 'energy-accumulated', 'timestamp']
+headers_last_trigger = ['last-meter', 'energy-remainder', 'timestamp']
 
 def append_data_grid(type_backup, energy_data):
     path = f"{BACKUP_FILES_DIR}/{type_backup}"
-    headers = HEADERS_ENERGY_DATA if type_backup != BACKUP_FILE_ROBONOMICS else HEADERS_LAST_TRIGGER
+    headers = headers_energy_data if type_backup != LAST_RECORD_TRIGGER else headers_last_trigger
     if not (isExistsFile(path)):
         create_file_csv(path, headers)    
     try:
@@ -32,30 +31,41 @@ def create_file_csv(path, headers):
             f_object.close()
             logging.info(f"Backup CSV file created successfully")
     except Exception as e:
-        logging.error(f"Failed to create csv file backup: {e}")
+        logging.debug(f"Failed to create csv file backup: {e}")
 
-def get_last_trigger_meter():
+def save_last_trigger_meter(energy_data, energy_remainder: str):
+    last_trigger_meter = {
+        "last-meter": energy_data["energy-accumulated"],
+        "energy-remainder": energy_remainder,
+        #"energy-remainder": energy_data["energy-accumulated"] - get_last_trigger_meter("last-meter"),
+        "timestamp": energy_data["timestamp"]
+    }
+    path = f"{BACKUP_FILES_DIR}/{LAST_RECORD_TRIGGER}"
+    delete_file_csv(path)
+    append_data_grid(LAST_RECORD_TRIGGER, last_trigger_meter)
+
+def get_last_trigger_meter(attribute: str = None):
     path = f"{BACKUP_FILES_DIR}/{LAST_RECORD_TRIGGER}"
     data = {}
     try:
-        if(isExistsFile(path)):
+        if (isExistsFile(path)):
             with open(path) as csv_file:
                 csv_reader = csv.DictReader(csv_file)
                 for rows in csv_reader:
                     data = rows
-            return data["end"]
+            return data[attribute] if attribute else data
         else:
-            return 0
-    except Exception:
-        return 0
-
-def save_last_trigger_meter(energy_data):
-    path = f"{BACKUP_FILES_DIR}/{LAST_RECORD_TRIGGER}"
-    delete_file_csv(path)
-    append_data_grid(energy_data)
+            data = {
+                "last-meter": 0,
+                "energy-remainder": 0,
+                "timestamp": currentTimestamp()
+            }
+            return data[attribute] if attribute else data
+    except Exception as e:
+        logging.error(f"Failed to get csv file backup: {e}")
 
 def delete_file_csv(type_backup):
-    path = BACKUP_FILES_DIR + type_backup
+    path = f"{BACKUP_FILES_DIR}/{type_backup}"
     if(isExistsFile(path)):
         try:
             os.remove(path)
