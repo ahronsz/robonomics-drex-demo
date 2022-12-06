@@ -2,15 +2,25 @@ import logging
 import os
 import csv
 from csv import DictWriter
-import os.path
+from os.path import exists as file_exists
 from global_variables import *
 
-headers_energy_data = ['grid-id', 'voltage', 'current', 'energy', 'energy-accumulated', 'timestamp']
+headers_energy_data = ['grid-location', 'voltage', 'current', 'energy', 'energy-accumulated', 'timestamp']
 headers_last_trigger = ['last-meter', 'energy-remainder', 'timestamp']
 
 def append_data_grid(type_backup, energy_data):
+    headers = ""
     path = f"{BACKUP_FILES_DIR}/{type_backup}"
-    headers = headers_energy_data if type_backup != LAST_RECORD_TRIGGER else headers_last_trigger
+    
+    if type_backup == LAST_RECORD_TRIGGER:
+        headers = headers_last_trigger
+    if type_backup == BACKUP_FILE_ENERGY_DATA:
+        headers = headers_energy_data
+    if type_backup == BACKUP_FILE_ROBONOMICS:
+        headers = headers_energy_data
+
+
+    #headers = headers_energy_data if type_backup != LAST_RECORD_TRIGGER else headers_last_trigger
     if not (isExistsFile(path)):
         create_file_csv(path, headers)    
     try:
@@ -63,6 +73,18 @@ def get_last_trigger_meter(attribute: str = None):
             return data[attribute] if attribute else data
     except Exception as e:
         logging.error(f"Failed to get csv file backup: {e}")
+
+def csvToArrayJson():
+    try:
+        data = []
+        with open(f"{BACKUP_FILES_DIR}/{BACKUP_FILE_ROBONOMICS}") as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            for rows in csv_reader:
+                data.append(rows)
+        return data
+    except Exception as e:
+        logging.error(f"Failed to get csv file backup: {e}")
+
 
 def delete_file_csv(type_backup):
     path = f"{BACKUP_FILES_DIR}/{type_backup}"

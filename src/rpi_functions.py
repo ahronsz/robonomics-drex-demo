@@ -1,5 +1,4 @@
 import time
-import datetime
 import logging
 #import serial
 from function_data import * # DECIMAL FROM FLOAT32 INT32 UNINT16 INT32-M10K
@@ -16,15 +15,15 @@ req1_1=b'\x40\x04\x00\x02\x00\x0C\x5E\xDE' #ser.read(29)  3+2*2*6+2
 
 ############################## DEFINE PAYLOADS ###############################
 
-TOKEN = "BBFF-pCiZMmMBWqtLVjivm2tT8SFfDU2h70"  # Put your TOKEN here
-DEVICE_1  = "drex_minigrid_1"  # Put your device label here
+#TOKEN = "BBFF-pCiZMmMBWqtLVjivm2tT8SFfDU2h70"  # Put your TOKEN here
+#DEVICE_1  = "drex_minigrid_1"  # Put your device label here
 
 ####### DEVICE VARIABLES  #######
 i = v = wh =  0
 
-####### REQUEST UBIDOTS FUNCTION #######
+####### REQUEST UBI_DOTS FUNCTION #######
 loop_c=0
-wh_acum=0
+wh_accumulated=0
 t_port=0.5
 t=60 #seconds
 grid_id=1
@@ -33,10 +32,8 @@ def get_energy_data():
     try:
         ########################################  SEM ONE METERING DEVICE #########################################
         ############## ID: 64  ##################
-        '''
-        dateNow = datetime.datetime.now()
-        global wh_acum
-        ser = serial.Serial('/dev/ttyAMA0', baudrate=9600, timeout=3)
+        global wh_accumulated
+        ser = serial.Serial('/dev/ttyAMA0', baudrate = 9600, timeout = 3)
         time.sleep(t_port)
         print("SEM ONE")
         req = req1_1  # SEM ONE PARAMETERS
@@ -54,24 +51,27 @@ def get_energy_data():
                 i = 0
 
         wh = v * i * (t / (60 * 60))
-        wh_acum = wh_acum + wh
+        wh_accumulated = wh_accumulated + wh
 
         return {
-            "grid-id": grid_id,
+            "grid-location": grid_id,
             "voltage": v,
             "current": i,
             "energy": wh,
-            "energy-acum": wh_acum,
-            "datetime": dateNow.strftime("%Y-%m-%dT%H:%M:%S")
+            "energy-accumulated": wh_accumulated,
+            "timestamp": currentTimestamp()
         }
+
+
         '''
         return {
-            "grid-id": 0,
+            "grid-location": 0,
             "voltage": 238.60000000000002,
             "current": 0.0,
             "energy": 2.0516666666666667,
             "energy-accumulated": 50,
             "timestamp": currentTimestamp()
         }
+        '''
     except Exception as e:
         logging.fatal(f"Failed to read grid data: {e}")

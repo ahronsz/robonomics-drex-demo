@@ -1,6 +1,6 @@
 import struct
 
-'''
+
 def function(data1,data2,data3,data4):
                 aa=data1
                 aa=aa<<8|data2
@@ -15,11 +15,8 @@ def function1(data1,data2):
                 aa=aa<<8|data2
                 data=aa
                 return(data)
-'''
 
 
-
-'''
 def function2(data1,data2,data3,data4):
                 aa=data1
                 aa=aa<<8|data2
@@ -32,13 +29,7 @@ def function2(data1,data2,data3,data4):
                         #print("aa and bb unsigned")
                         data= (aa-0)*65536 + (bb-0)
                 return(data)
-'''
 
-
-
-
-
-'''
 def function3(data1,data2,data3,data4):
                 aa=data1
                 aa=aa<<8|data2
@@ -66,4 +57,3 @@ def function4(data1,data2,data3,data4,data5,data6,data7,data8):
                 c=aaaa<<32|bbbb
                 data=struct.unpack('d', struct.pack('Q', c))[0]
                 return(data)
-'''
