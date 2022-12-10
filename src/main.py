@@ -25,7 +25,7 @@ logging.basicConfig(
 )
 
 try:
-    account_with_seed = Account(seed = SEED, remote_ws = "ws://127.0.0.1:9944")
+    account_with_seed = Account(seed = SEED, remote_ws = "wss://mercury.frontier.rpc.robonomics.network")
     data_log = Datalog(account_with_seed)
 except Exception as e:
     logging.error(e)

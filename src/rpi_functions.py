@@ -30,6 +30,7 @@ grid_id=1
 
 def get_energy_data():
     try:
+        '''
         ########################################  SEM ONE METERING DEVICE #########################################
         ############## ID: 64  ##################
         global wh_accumulated
@@ -61,9 +62,8 @@ def get_energy_data():
             "energy-accumulated": wh_accumulated,
             "timestamp": currentTimestamp()
         }
-
-
         '''
+        
         return {
             "grid-location": 0,
             "voltage": 238.60000000000002,
@@ -72,6 +72,6 @@ def get_energy_data():
             "energy-accumulated": 50,
             "timestamp": currentTimestamp()
         }
-        '''
+        
     except Exception as e:
         logging.fatal(f"Failed to read grid data: {e}")
