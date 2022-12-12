@@ -19,7 +19,6 @@ def append_data_grid(type_backup, energy_data):
     if type_backup == BACKUP_FILE_ROBONOMICS:
         headers = headers_energy_data
 
-
     #headers = headers_energy_data if type_backup != LAST_RECORD_TRIGGER else headers_last_trigger
     if not (isExistsFile(path)):
         create_file_csv(path, headers)    
