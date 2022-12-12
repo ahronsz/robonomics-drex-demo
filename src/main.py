@@ -63,7 +63,7 @@ while True:
             last_energy_accumulated_robo = last_data_log[1] if last_data_log else 0
             energy_data["energy-accumulated"] = last_energy_accumulated_robo + energy_accumulated # Set energy accumulated of robonomics
             
-            
+            # Si hay un archivo pendiente con registros pendiente a enviar a la red de robonomics
             if(csv_functions.isExistsFile(f"{BACKUP_FILES_DIR}/{BACKUP_FILE_ROBONOMICS}")):
                 robonomics_backup = csv_functions.csvToArrayJson()
                 csv_functions.delete_file_csv(BACKUP_FILE_ROBONOMICS)
@@ -72,6 +72,7 @@ while True:
                     t = threading.Thread(target=data_log.record(json.dumps(key)), args=())
                     threads.append(t)
                     t.start()
+
             data_log.record(json.dumps(energy_data))
             logging.info(f"Successfully logged data log in robonomics! {energy_data}")
         except Exception as e:
