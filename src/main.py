@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import time
 import serial
+import logging
 import requests
 #import pandas as pd
 from function_data import * # DECIMAL FROM FLOAT32 INT32 UNINT16 INT32-M10K
@@ -8,6 +9,11 @@ import csv_functions
 import expose.rest as rest
 from global_variables import *
 from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s: %(message)s"
+)
 
 ############################## OPEN SERIAL PORT ###############################
 
