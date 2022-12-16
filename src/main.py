@@ -16,6 +16,7 @@ from function_data import * # DECIMAL FROM FLOAT32 INT32 UNINT16 INT32-M10K
 import csv_functions
 import expose.rest as rest
 from global_variables import *
+import threading
 from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
 
 logging.basicConfig(
@@ -218,16 +219,20 @@ while True:
         if loop_t>=EACH_MINUTE: ##loop 1 is equal to 1 minute
             loop_t=0
             ########## SENDING DATA TO ROBONOMICS ##########
-            print(kwh_acum)
             data = {
                 "device-code": DEVICE_1,
                 "energy-accumulated": kwh_acum,
                 "timestamp": currentTimestamp()
             }
-            print(data)
+            threads = list()
             if(csv_functions.isExistsFile(f"{BACKUP_FILES_DIR}/{BACKUP_FILE_ENERGY_DATA}")):
-                rest.send_batch_energy_data()
-            rest.save_energy_data(data) #Save energy data to backend
+                t2 = threading.Thread(target=rest.send_batch_energy_data(), args=())
+                threads.append(t2)
+                t2.start
+            #Save energy data to backend    
+            t1 = threading.Thread(target=rest.save_energy_data(), args=(data))
+            threads.append(t)
+            t1.start()
 
     
 
