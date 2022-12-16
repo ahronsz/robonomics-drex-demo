@@ -201,7 +201,7 @@ while True:
             post_request(DEVICE_1,payload)
             time.sleep(1)
 
-        if loop_t>=5: ##loop 1 is equal to 1 minute
+        if loop_t>=EACH_MINUTE: ##loop 1 is equal to 1 minute
             loop_t=0
             ########## SENDING DATA TO ROBONOMICS ##########
             print(kwh_acum)
