@@ -133,6 +133,7 @@ while True:
 
         if loop_t>=EACH_MINUTE: ##loop 5 is equal to 5 minute
             loop_t=0
+            print("Hola mundo")
             ########## SENDING DATA TO BACKEND ##########
             data = {
                 "device-code": DEVICE_1,
