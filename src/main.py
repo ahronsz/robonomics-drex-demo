@@ -224,6 +224,7 @@ while True:
                 "energy-accumulated": kwh_acum,
                 "timestamp": currentTimestamp()
             }
+            print(data)
             if(csv_functions.isExistsFile(f"{BACKUP_FILES_DIR}/{BACKUP_FILE_ENERGY_DATA}")):
                 rest.send_batch_energy_data()
             rest.save_energy_data(data) #Save energy data to backend
