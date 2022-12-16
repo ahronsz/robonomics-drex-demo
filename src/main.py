@@ -78,6 +78,7 @@ def post_request(device,payload):
 
 
 loop_c=0
+loop_t=0
 t_port=0.5
 t=10 #seconds
 grid_id=1
@@ -113,6 +114,7 @@ while True:
 
         #ser.close()
         loop_c=loop_c+1
+        loop_t=loop_t+1
         print("Loop Counter",loop_c)
         print("")
         time.sleep(t*6) ## t=10s, sleep = 60s = 1minute
