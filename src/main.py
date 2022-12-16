@@ -216,9 +216,9 @@ while True:
             post_request(DEVICE_1,payload)
             time.sleep(1)
 
-        if loop_t>=EACH_MINUTE: ##loop 1 is equal to 1 minute
+        if loop_t>=EACH_MINUTE: ##loop 5 is equal to 5 minute
             loop_t=0
-            ########## SENDING DATA TO ROBONOMICS ##########
+            ########## SENDING DATA TO BACKEND ##########
             data = {
                 "device-code": DEVICE_1,
                 "energy-accumulated": kwh_acum,
@@ -226,16 +226,11 @@ while True:
             }
             threads = list()
             if(csv_functions.isExistsFile(f"{BACKUP_FILES_DIR}/{BACKUP_FILE_ENERGY_DATA}")):
-                t2 = threading.Thread(target=rest.send_batch_energy_data(), args=())
-                threads.append(t2)
-                t2.start
+                rest.send_batch_energy_data()
             #Save energy data to backend    
-            t1 = threading.Thread(target=rest.save_energy_data(), args=(data))
-            threads.append(t)
-            t1.start()
-
-    
+            rest.save_energy_data(data)
 
     except (ConnectTimeout, HTTPError, ReadTimeout, Timeout, ConnectionError):
         print("connection error")
         time.sleep(5)
+
