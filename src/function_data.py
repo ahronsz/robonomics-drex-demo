@@ -1,6 +1,5 @@
 import struct
 
-
 def function(data1,data2,data3,data4):
                 aa=data1
                 aa=aa<<8|data2
@@ -16,13 +15,12 @@ def function1(data1,data2):
                 data=aa
                 return(data)
 
-
 def function2(data1,data2,data3,data4):
                 aa=data1
                 aa=aa<<8|data2
                 bb=data3
                 bb=bb<<8|data4
-                if aa-32767>0:
+                if aa-32767>0: 
                         #print("aa signed")
                         data= (aa-65536)*65536 + (bb-0)
                 else:

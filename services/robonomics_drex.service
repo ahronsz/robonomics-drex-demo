@@ -10,9 +10,8 @@ Restart=always
 
 #Edit these lines. Insert mnemonic key
 EnvironmentFile=/etc/systemd/system/.env
-User = ubuntu
-Environment=seed="sea calm shoe boss excuse unlock blossom member very another exile finish"
-ExecStart= /usr/bin/python3 /home/$USER/robonomics-drex-demo/services/main.py ${seed}
+User = pi
+ExecStart= /usr/bin/python3 /home/$USER/robonomics-drex-demo/src/main.py
 
 [Install]
 WantedBy=multi-user.target
