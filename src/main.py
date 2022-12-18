@@ -188,6 +188,7 @@ while True:
 
         #ser.close()
         loop_c=loop_c+1
+        loop_t=loop_t+1
         print("Loop Counter",loop_c)
         print("")
         time.sleep(t)
