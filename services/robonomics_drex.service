@@ -6,12 +6,12 @@ After=network.target
 [Service]
 Type=simple
 Restart=always
-#RestartSec=15
+RestartSec=15
 
 #Edit these lines. Insert mnemonic key
-EnvironmentFile=/etc/systemd/system/.env
+#EnvironmentFile=/etc/systemd/system/.env
 User = pi
-ExecStart= /usr/bin/python3 /home/$USER/robonomics-drex-demo/src/main.py
+ExecStart= /usr/bin/python3 /home/pi/robonomics-rpi-drex/src/main.py
 
 [Install]
 WantedBy=multi-user.target
