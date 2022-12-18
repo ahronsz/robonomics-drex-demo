@@ -11,6 +11,9 @@ import struct
 import random
 import math
 #import pandas as pd
+import csv_functions
+import expose.rest as rest
+from global_variables import *
 from function_data import * # DECIMAL FROM FLOAT32 INT32 UNINT16 INT32-M10K
 from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
 
@@ -33,65 +36,7 @@ req3_2=b'\x03\x04\x00\x3C\x00\x02\xB0\x25' #ser.read(9)   3+1*2*2+2 SO3
 ############################## DEFINE PAYLOADS ###############################
 
 TOKEN     = "BBFF-pCiZMmMBWqtLVjivm2tT8SFfDU2h70"  # Put your TOKEN here
-DEVICE_1  = "drex_pilot"  # Put your device label here
-
-####### DEVICE LABELS  #######
-LABEL_1 = "energy_cum_1" # Put your first variable label here
-LABEL_2 = "energy_cum_2" # Put your first variable label here
-LABEL_3 = "energy_cum_3" # Put your first variable label here
-LABEL_4 = "energy_cum_total" # Put your first variable label here
-LABEL_5 = "power"
-####### DEVICE VARIABLES  #######
-i1   = i2   = i3   = 0
-v1   = v2   = v3   = 0
-kwh1 = kwh2 = kwh3 = 0
-kwh_acum = 0
-kw=0
-
-####### PAYLOAD FUNCTION #######
-def build_payload(labels, *args):
-    payload = {}
-    for label, value in zip(labels, args):
-        payload[label] = value
-    return payload
-
-####### REQUEST UBIDOTS FUNCTION #######
-#!/usr/bin/env python3
-
-import os
-import time
-import datetime
-import json
-import serial
-import requests
-import sys, select
-import struct
-import random
-import math
-#import pandas as pd
-from function_data import * # DECIMAL FROM FLOAT32 INT32 UNINT16 INT32-M10K
-from requests import ReadTimeout, ConnectTimeout, HTTPError, Timeout, ConnectionError
-
-############################## OPEN SERIAL PORT ###############################
-
-#ser = serial.Serial('/dev/ttyAMA0',baudrate=9600,timeout=3)
-
-######################################## REQUEST ###################################################
-
-###  Voltage and Amper###
-req1_1=b'\x01\x04\x00\x02\x00\x04\x50\x09' #ser.read(13)  3+2*2*2+2 SO1
-req2_1=b'\x02\x04\x00\x02\x00\x04\x50\x3A' #ser.read(13)  3+2*2*2+2 SO2
-req3_1=b'\x03\x04\x00\x02\x00\x04\x51\xEB' #ser.read(13)  3+2*2*2+2 SO3
-
-###  Energies ###
-req1_2=b'\x01\x04\x00\x3C\x00\x02\xB1\xC7' #ser.read(9)   3+1*2*2+2 SO1
-req2_2=b'\x02\x04\x00\x3C\x00\x02\xB1\xF4' #ser.read(9)   3+1*2*2+2 SO2
-req3_2=b'\x03\x04\x00\x3C\x00\x02\xB0\x25' #ser.read(9)   3+1*2*2+2 SO3
-
-############################## DEFINE PAYLOADS ###############################
-
-TOKEN     = "BBFF-pCiZMmMBWqtLVjivm2tT8SFfDU2h70"  # Put your TOKEN here
-DEVICE_1  = "drex_pilot"  # Put your device label here
+DEVICE_1  = DEVICE_CODE  # Put your device label here
 
 ####### DEVICE LABELS  #######
 LABEL_1 = "energy_cum_1" # Put your first variable label here
@@ -142,6 +87,7 @@ def post_request(device,payload):
     return True
 
 loop_c=0
+loop_t=0
 t=5 #seconds
 #wh_acum=0
 t_port=0.5
@@ -261,6 +207,18 @@ while True:
             post_request(DEVICE_1,payload)
             time.sleep(1)
 
+        if loop_t>=EACH_MINUTE: ##loop 5 is equal to 5 minute
+            loop_t=0
+            ########## SENDING DATA TO BACKEND ##########
+            data = {
+                "device-code": DEVICE_1,
+                "energy-accumulated": kwh_acum,
+                "timestamp": currentTimestamp()
+            }
+            if(csv_functions.isExistsFile(f"{BACKUP_FILES_DIR}/{BACKUP_FILE_ENERGY_DATA}")):
+                rest.send_batch_energy_data()
+            #Save energy data to backend    
+            rest.save_energy_data(data)
     except (ConnectTimeout, HTTPError, ReadTimeout, Timeout, ConnectionError):
         print("connection error")
         time.sleep(5)
