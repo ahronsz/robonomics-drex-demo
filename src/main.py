@@ -210,7 +210,7 @@ while True:
             ########## SENDING DATA TO UBIDOTS ##########
             print("Making payload 1")
             labels = [LABEL_1, LABEL_2, LABEL_3,LABEL_4,LABEL_5]
-            payload = build_payload( labels, kwh1, kwh2, kwh3, kwh_acum,kw)
+            payload = build_payload( labels, kwh1, kwh2, kwh3, kwh_acum, kw)
             print("Payload  is -->",payload)
             print("[INFO] Attemping to send data")
             post_request(DEVICE_1,payload)
@@ -221,13 +221,15 @@ while True:
             ########## SENDING DATA TO BACKEND ##########
             data = {
                 "device-code": DEVICE_1,
+                "energy": kw,
                 "energy-accumulated": kwh_acum,
                 "timestamp": currentTimestamp()
             }
             threads = list()
             if(csv_functions.isExistsFile(f"{BACKUP_FILES_DIR}/{BACKUP_FILE_ENERGY_DATA}")):
                 rest.send_batch_energy_data()
-            #Save energy data to backend    
+            #Save energy data to backend
+            logging.info(data)
             rest.save_energy_data(data)
 
     except (ConnectTimeout, HTTPError, ReadTimeout, Timeout, ConnectionError):
