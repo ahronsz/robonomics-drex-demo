@@ -4,7 +4,7 @@ import logging
 import csv_functions as csv
 from global_variables import *
 
-_url = f"{BASE_URL_BACKEND_CONSUME}/grid"
+_url = f"{BASE_URL_BACKEND_CONSUME}/plant"
 
 def save_energy_data(energy_data):
     try:

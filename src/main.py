@@ -210,9 +210,10 @@ while True:
             loop_t=0
             ########## SENDING DATA TO BACKEND ##########
             data = {
-                "device-code": DEVICE_1,
-                "energy-accumulated": kwh_acum,
-                "timestamp": currentTimestamp()
+                "deviceCode": DEVICE_1,
+                "energy": kw,
+                "energyAccumulated": kwh_acum,
+                "posixTimestamp": currentTimestamp()
             }
             if(csv_functions.isExistsFile(f"{BACKUP_FILES_DIR}/{BACKUP_FILE_ENERGY_DATA}")):
                 rest.send_batch_energy_data()

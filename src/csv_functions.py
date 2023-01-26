@@ -4,7 +4,7 @@ import csv
 from csv import DictWriter
 from global_variables import *
 
-headers_energy_data = ['device-code', 'energy-accumulated', 'timestamp']
+headers_energy_data = ['deviceCode', 'energy','energyAccumulated', 'posixTimestamp']
 
 def append_data_grid(type_backup, energy_data):
     headers = headers_energy_data
